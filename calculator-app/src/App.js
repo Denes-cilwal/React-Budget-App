@@ -11,64 +11,79 @@ const InitialExpenses = [
   { id: uuidv4(), charge: "credit card bill", amount: 1600 },
 ];
 
-console.log(InitialExpenses);
 
 function App() {
   /********************state ************************/
-  const [expenses, setExpense] = useState(InitialExpenses);
-  // single expense
+  // expense
+  const [expenses, setExpenses] = useState(InitialExpenses);
+  // charge
   const [charge, setCharge] = useState("");
-  // single amount
+  // amount
   const [amount, setAmount] = useState("");
+  // alert
+  const [alert, setAlert] = useState({ show: false });
+
+
 
   /*********************functionality**************************** */
   //charge ..
   const handleCharge = (e) => {
     setCharge(e.target.value);
-    console.log(charge,"msg")
+    console.log(charge, "msg");
   };
   //amount ....
   const handleAmount = (e) => {
     setAmount(e.target.value);
   };
-  // handlesubmit
+  const handleAlert = ({ type, text }) => {
+    setAlert({ show: true, type, text });
+
+    // call settimeout function
+    setTimeout(() => {
+      setAlert({ show: false });
+    }, 5000);
+  };
+  // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    // submit when there is data .... apply cond here..
-    if(charge !== "" && amount > 0){
-
-      // now must create new object here ... because all are static one...
-      const singleExpenses = {id:uuidv4(), charge, amount}
-      setExpense([...expenses,singleExpenses]);
-
-      //clear input field after submitting....
+    if (charge !== "" && amount > 0) {
+      const singleExpense = { id: uuidv4(), charge, amount };
+      // append with initial object
+      setExpenses([...expenses, singleExpense]);
+      handleAlert({ type: "success", text: "item added" });
+      // set charge back to empty string
       setCharge("");
-      setExpense("");
-    }else{
-      console.log("abc")
+      // set amount back to zero
+      setAmount("");
+    } else {
+      handleAlert({
+        type: "danger",
+        text: `charge can't be empty value and amount value has to be bigger than zero`,
+      });
+       
     }
   };
   return (
     <>
-      <Alert />
-      <h1>Budget Calculating App</h1>
+    {/* show alert if condition is false ... */}
+      {alert.show && <Alert type={alert.type} text={alert.text} />}
+      <h1>budget calculator</h1>
       <main className="App">
         <ExpenseTrackerForm
+          handleSubmit={handleSubmit}
           charge={charge}
+          handleCharge={handleCharge}
           amount={amount}
           handleAmount={handleAmount}
-          handleCharge={handleCharge}
-          handleSubmit={handleSubmit}
         />
         <ExpenseList expenses={expenses} />
       </main>
       <h1>
-        {/* acc is total and curr is current item in iteration */}
-        total resultAmount:
+        total Sum :
         <span className="total">
-          ${" "}
+          $
           {expenses.reduce((acc, curr) => {
-            return acc +=parseInt(curr.amount);
+            return (acc += curr.amount);
           }, 0)}
         </span>
       </h1>
