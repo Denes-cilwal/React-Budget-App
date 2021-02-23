@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
 import { MdSend } from "react-icons/md";
 
-export const ExpenseTrackerForm = () => {
-    return (
-        <form>
+export const ExpenseTrackerForm = ({
+  charge,
+  amount,
+  handleAmount,
+  handleCharge,
+  handleSubmit,
+}) => {
+  return (
+    <form onSubmit={handleSubmit}>
       <div className="form-center">
         <div className="form-group">
           <label htmlFor="expense">charge</label>
@@ -13,6 +19,8 @@ export const ExpenseTrackerForm = () => {
             id="charge"
             name="charge"
             placeholder="e.g. rent"
+            value={charge}
+            onChange={handleCharge}
           />
         </div>
         <div className="form-group">
@@ -23,17 +31,15 @@ export const ExpenseTrackerForm = () => {
             id="amount"
             name="amount"
             placeholder="e.g. 100"
+            value={amount}
+            onChange={handleAmount}
           />
         </div>
       </div>
       <button type="submit" className="btn">
-        submit 
+        submit
         <MdSend className="btn-icon" />
       </button>
     </form>
   );
-    
-}
-
- 
-
+};

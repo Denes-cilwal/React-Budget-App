@@ -14,13 +14,52 @@ const InitialExpenses = [
 console.log(InitialExpenses);
 
 function App() {
+  /********************state ************************/
   const [expenses, setExpense] = useState(InitialExpenses);
+  // single expense
+  const [charge, setCharge] = useState("");
+  // single amount
+  const [amount, setAmount] = useState("");
+
+  /*********************functionality**************************** */
+  //charge ..
+  const handleCharge = (e) => {
+    setCharge(e.target.value);
+    console.log(charge,"msg")
+  };
+  //amount ....
+  const handleAmount = (e) => {
+    setAmount(e.target.value);
+  };
+  // handlesubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // submit when there is data .... apply cond here..
+    if(charge !== "" && amount > 0){
+
+      // now must create new object here ... because all are static one...
+      const singleExpenses = {id:uuidv4(), charge, amount}
+      setExpense([...expenses,singleExpenses]);
+
+      //clear input field after submitting....
+      setCharge("");
+      setExpense("");
+    }else{
+      console.log("abc")
+    }
+  };
   return (
     <>
       <Alert />
       <h1>Budget Calculating App</h1>
       <main className="App">
-        <ExpenseTrackerForm />
+        <ExpenseTrackerForm
+          charge={charge}
+          amount={amount}
+          handleAmount={handleAmount}
+          handleCharge={handleCharge}
+          handleSubmit={handleSubmit}
+        />
         <ExpenseList expenses={expenses} />
       </main>
       <h1>
@@ -29,7 +68,7 @@ function App() {
         <span className="total">
           ${" "}
           {expenses.reduce((acc, curr) => {
-            return (acc += curr.amount);
+            return acc +=parseInt(curr.amount);
           }, 0)}
         </span>
       </h1>
