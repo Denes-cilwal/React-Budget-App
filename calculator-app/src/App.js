@@ -43,6 +43,19 @@ function App() {
       setAlert({ show: false });
     }, 5000);
   };
+
+  //handleEdit
+  const handleEdit = (id)=>{
+    console.log("editing....")
+  }
+  // handleDelete:deleting single item
+  const handleDelete = (id)=>{
+    console.log("deleting....")
+  }
+  // clear items
+  const clearItems = ()=>{
+    console.log("clearing all....")
+  }
   // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,7 +89,12 @@ function App() {
           amount={amount}
           handleAmount={handleAmount}
         />
-        <ExpenseList expenses={expenses} />
+        <ExpenseList 
+        expenses={expenses}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        clearItems={clearItems}
+         />
       </main>
       <h1>
         total Sum :
