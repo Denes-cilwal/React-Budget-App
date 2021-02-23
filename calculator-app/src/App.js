@@ -1,10 +1,15 @@
 import './App.css';
+import {ExpenseList} from "./components/ExpenseList"
+import {Alert} from "./components/Alert"
+import {ExpenseTrackerForm} from "./components/ExpenseTrackerForm";
 
 function App() {
   return (
-    <div className="App">
-     <h1>Let's buid Budget App</h1>
-    </div>
+      <>
+     <ExpenseList/>
+     <Alert/>
+     <ExpenseTrackerForm/>
+     </>
   );
 }
 
