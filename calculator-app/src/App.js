@@ -54,7 +54,8 @@ function App() {
   }
   // clear items
   const clearItems = ()=>{
-    console.log("clearing all....")
+    // check ....
+    setExpenses([])
   }
   // handle submit
   const handleSubmit = (e) => {
