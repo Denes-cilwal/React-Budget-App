@@ -50,12 +50,18 @@ function App() {
   }
   // handleDelete:deleting single item
   const handleDelete = (id)=>{
-    console.log("deleting....")
+    // check ....
+    let tempExpenses = expenses.filter(item => item.id !== id)
+    setExpenses(tempExpenses);
+    handleAlert({ type: "success", text: "item deleted" });
+
   }
   // clear items
   const clearItems = ()=>{
     // check ....
     setExpenses([])
+    handleAlert({ type: "success", text: "items cleared" });
+
   }
   // handle submit
   const handleSubmit = (e) => {
