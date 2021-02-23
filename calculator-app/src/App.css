@@ -61,7 +61,7 @@ label {
 .btn {
   text-decoration: none;
   color: var(--mainWhite);
-  background-color: var(--primaryColor);
+  background-color: sienna;
   text-align: center;
   letter-spacing: 0.5px;
   font-size: 14px;
